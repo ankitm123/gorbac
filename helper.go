@@ -3,7 +3,7 @@ package gorbac
 import "fmt"
 
 // WalkHandler is a function defined by user to handle role
-type WalkHandler[T comparable] func(Role[T], []T) error
+type WalkHandler[T comparable] func(*Role[T], []T) error
 
 // Walk passes each Role to WalkHandler
 func Walk[T comparable](rbac *RBAC[T], h WalkHandler[T]) (err error) {

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/mikespook/gorbac/v3"
+	"github.com/mikespook/gorbac/v4"
 )
 
 func init() {
@@ -96,7 +96,7 @@ func main() {
 	jsonOutputRoles := make(map[string][]string)
 	// map[RoleId]ParentIds
 	jsonOutputInher := make(map[string][]string)
-	SaveJsonHandler := func(r gorbac.Role[string], parents []string) error {
+	SaveJsonHandler := func(r *gorbac.Role[string], parents []string) error {
 		// WARNING: Don't use gorbac.RBAC instance in the handler,
 		// otherwise it causes deadlock.
 		permissions := make([]string, 0)

@@ -3,18 +3,18 @@ package gorbac_test
 import (
 	"fmt"
 
-	"github.com/mikespook/gorbac/v3"
+	"github.com/mikespook/gorbac/v4"
 )
 
 /*
-	Suppose:
+Suppose:
 
-	The role-a is inheriting from role-b.
-	The role-b is inheriting from role-c, role-d.
-	The role-c is individual.
-	The role-d is individual.
-	The role-e is inheriting from role-d.
-	Every roles have their own permissions.
+The role-a is inheriting from role-b.
+The role-b is inheriting from role-c, role-d.
+The role-c is individual.
+The role-d is individual.
+The role-e is inheriting from role-d.
+Every roles have their own permissions.
 */
 func ExampleRBAC_string() {
 	rbac := gorbac.New[string]()

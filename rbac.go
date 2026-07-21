@@ -4,15 +4,15 @@ control implementation in Golang.
 
 For the purposes of this package:
 
-	* an identity has one or more roles.
-	* a role requests access to a permission.
-	* a permission is given to a role.
+  - an identity has one or more roles.
+  - a role requests access to a permission.
+  - a permission is given to a role.
 
 Thus, RBAC has the following model:
 
-	* many to many relationship between identities and roles.
-	* many to many relationship between roles and permissions.
-	* roles can have parent roles.
+  - many to many relationship between identities and roles.
+  - many to many relationship between roles and permissions.
+  - roles can have parent roles.
 */
 package gorbac
 
@@ -129,7 +129,7 @@ func (rbac *RBAC[T]) RemoveParent(id T, parent T) error {
 }
 
 // Add a role `r`.
-func (rbac *RBAC[T]) Add(r Role[T]) (err error) {
+func (rbac *RBAC[T]) Add(r *Role[T]) (err error) {
 	rbac.mutex.Lock()
 	if _, ok := rbac.roles[r.ID]; !ok {
 		rbac.roles[r.ID] = r
@@ -165,7 +165,7 @@ func (rbac *RBAC[T]) Remove(id T) (err error) {
 }
 
 // Get the role by `id` and a slice of its parents id.
-func (rbac *RBAC[T]) Get(id T) (r Role[T], parents []T, err error) {
+func (rbac *RBAC[T]) Get(id T) (r *Role[T], parents []T, err error) {
 	rbac.mutex.RLock()
 	var ok bool
 	if r, ok = rbac.roles[id]; ok {

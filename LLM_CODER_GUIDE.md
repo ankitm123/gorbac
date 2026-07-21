@@ -51,9 +51,9 @@ The main RBAC structure manages roles and their inheritance relationships.
 #### Key Methods
 
 - `New[T comparable]() *RBAC[T]` - Creates a new RBAC instance
-- `Add(r Role[T]) error` - Adds a role to the RBAC instance
+- `Add(r *Role[T]) error` - Adds a role to the RBAC instance
 - `Remove(id T) error` - Removes a role by ID
-- `Get(id T) (Role[T], []T, error)` - Gets a role and its parents
+- `Get(id T) (*Role[T], []T, error)` - Gets a role and its parents
 - `SetParent(id T, parent T) error` - Sets a parent for a role
 - `SetParents(id T, parents []T) error` - Sets multiple parents for a role
 - `GetParents(id T) ([]T, error)` - Gets all parents of a role
@@ -78,7 +78,7 @@ type Role[T comparable] struct {
 
 #### Key Methods
 
-- `NewRole[T comparable](id T) Role[T]` - Creates a new role
+- `NewRole[T comparable](id T) *Role[T]` - Creates a new role
 - `Assign(p Permission[T]) error` - Assigns a permission to the role
 - `Permit(p Permission[T]) bool` - Checks if the role has a specific permission
 - `Revoke(p Permission[T]) error` - Revokes a permission from the role
@@ -217,7 +217,7 @@ You can create custom roles by embedding the standard role:
 
 ```go
 type myRole struct {
-    gorbac.Role[string]  // Embed the standard role
+    *gorbac.Role[string]  // Embed the standard role
     Label       string
     Description string
 }

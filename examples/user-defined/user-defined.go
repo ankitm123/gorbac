@@ -4,15 +4,15 @@ package main
 import (
 	"fmt"
 
-	"github.com/mikespook/gorbac/v3"
+	"github.com/mikespook/gorbac/v4"
 )
 
 // myRole is a custom role that embeds the standard gorbac.Role
 // and adds additional fields
 type myRole struct {
-	gorbac.Role[string]  // Embed the standard role
-	Label       string
-	Description string
+	*gorbac.Role[string] // Embed the standard role
+	Label                string
+	Description          string
 }
 
 // NewMyRole creates a new custom role with additional properties
@@ -20,7 +20,7 @@ func NewMyRole(name string) *myRole {
 	// loading extra properties by `name`.
 	label, desc := loadByName(name)
 	return &myRole{
-		Role:        gorbac.NewRole(name),  // Create the standard role
+		Role:        gorbac.NewRole(name), // Create the standard role
 		Label:       label,
 		Description: desc,
 	}
@@ -37,7 +37,7 @@ func main() {
 	r2 := NewMyRole("role-2")
 	r3 := NewMyRole("role-3")
 	r4 := NewMyRole("role-4")
-	
+
 	// Add roles to RBAC - we need to pass the embedded Role part
 	if err := rbac.Add(r1.Role); err != nil {
 		fmt.Printf("Error: %s", err)
@@ -71,9 +71,8 @@ func main() {
 		fmt.Printf("Error: %s", err)
 		return
 	}
-	
+
 	// Note: In this simple example, we're not demonstrating access to the custom fields
 	// In a real application, you would maintain a separate map of custom roles
 	fmt.Printf("Role ID: %s\nParents: %v\n", role.ID, parents)
 }
-

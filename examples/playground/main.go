@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	gorbac "github.com/mikespook/gorbac/v3"
+	gorbac "github.com/mikespook/gorbac/v4"
 	"github.com/mikespook/possum"
 	_ "modernc.org/sqlite"
 )
@@ -214,7 +214,7 @@ type StateResponse struct {
 
 func handleState(w http.ResponseWriter, r *http.Request) {
 	var views []RoleView
-	gorbac.Walk(state.rbac, func(role gorbac.Role[string], parents []string) error {
+	gorbac.Walk(state.rbac, func(role *gorbac.Role[string], parents []string) error {
 		rv := RoleView{ID: role.ID, Parents: parents, Permissions: []string{}}
 		if rv.Parents == nil {
 			rv.Parents = []string{}

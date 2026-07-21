@@ -59,8 +59,8 @@ func TestRbacGetRemove(t *testing.T) {
 	}
 	if r, parents, err := rbac.Get("role-a"); err != ErrRoleNotExist {
 		t.Fatalf("%s needed", ErrRoleNotExist)
-	} else if r.ID != "" {
-		t.Fatal("The ID of a role should be empty")
+	} else if r != nil {
+		t.Fatal("The role should be nil")
 	} else if parents != nil {
 		t.Fatal("The slice of parents should be a nil")
 	}

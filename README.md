@@ -31,7 +31,7 @@ Install
 Install the package:
 
 ```bash
-$ go get github.com/mikespook/gorbac/v3
+$ go get github.com/mikespook/gorbac/v4
 ```
 
 Usage
@@ -49,7 +49,7 @@ Preparing
 Import the library:
 
 ```go
-import "github.com/mikespook/gorbac/v3"
+import "github.com/mikespook/gorbac/v4"
 ```
 
 Get a new instance of RBAC (using string as the ID type):
@@ -177,7 +177,7 @@ if gorbac.AllGranted(rbac, roles, pA, nil) {
 Iterates through all roles in the RBAC instance:
 
 ```go
-handler := func(r gorbac.Role[string], parents []string) error {
+handler := func(r *gorbac.Role[string], parents []string) error {
 	fmt.Printf("Role: %s, Parents: %v\n", r.ID, parents)
 	return nil
 }

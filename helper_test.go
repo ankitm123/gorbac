@@ -70,7 +70,7 @@ func TestWalk(t *testing.T) {
 	if err := Walk(rbac, nil); err != nil {
 		t.Errorf("Unexpected error: %s", err)
 	}
-	h := func(r Role[string], parents []string) error {
+	h := func(r *Role[string], parents []string) error {
 		t.Logf("Role: %v", r.ID)
 		permissions := make([]string, 0)
 		for _, p := range r.Permissions() {
@@ -83,7 +83,7 @@ func TestWalk(t *testing.T) {
 	if err := Walk(rbac, h); err != nil {
 		t.Errorf("Unexpected error: %s", err)
 	}
-	he := func(r Role[string], parents []string) error {
+	he := func(r *Role[string], parents []string) error {
 		return errors.New("Expected error")
 	}
 	if err := Walk(rbac, he); err == nil {

@@ -5,12 +5,12 @@ import (
 )
 
 // Roles is a map
-type Roles[T comparable] map[T]Role[T]
+type Roles[T comparable] map[T]*Role[T]
 
 // NewStdRole is the default role factory function.
 // It matches the declaration to RoleFactoryFunc.
-func NewRole[T comparable](id T) Role[T] {
-	return Role[T]{
+func NewRole[T comparable](id T) *Role[T] {
+	return &Role[T]{
 		ID:          id,
 		permissions: make(Permissions[T]),
 	}

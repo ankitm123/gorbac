@@ -2,12 +2,12 @@ module examples/playground
 
 go 1.24
 
-replace github.com/mikespook/gorbac/v3 => ../..
+replace github.com/mikespook/gorbac/v4 => ../..
 
 replace github.com/mikespook/possum => ../../../possum
 
 require (
-	github.com/mikespook/gorbac/v3 v3.0.0-00010101000000-000000000000
+	github.com/mikespook/gorbac/v4 v4.0.0-00010101000000-000000000000
 	github.com/mikespook/possum v0.0.0-00010101000000-000000000000
 	modernc.org/sqlite v1.38.0
 )
