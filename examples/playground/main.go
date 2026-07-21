@@ -172,6 +172,16 @@ func buildAssertion(mode string, params map[string]string) gorbac.AssertionFunc[
 		return func(_ *gorbac.RBAC[string], _ string, _ gorbac.Permission[string]) bool {
 			return runtime.GOOS == "windows"
 		}
+	case "isHuman":
+		userType := params["userType"]
+		return func(_ *gorbac.RBAC[string], _ string, _ gorbac.Permission[string]) bool {
+			return userType == "human"
+		}
+	case "isAI":
+		userType := params["userType"]
+		return func(_ *gorbac.RBAC[string], _ string, _ gorbac.Permission[string]) bool {
+			return userType == "ai"
+		}
 	case "is200", "is401", "is403", "is404", "is500":
 		want := map[string]int{"is200": 200, "is401": 401, "is403": 403, "is404": 404, "is500": 500}[mode]
 		url := params["url"]
@@ -478,13 +488,22 @@ var seedData = struct {
 		id      string
 		parents []string
 	}{
-		{"guest", nil},
+		{"human", nil},
+		{"ai", nil},
+		{"guest", []string{"human"}},
 		{"member", []string{"guest"}},
 		{"editor", []string{"member"}},
 		{"admin", []string{"editor"}},
 		{"superadmin", []string{"admin"}},
 	},
 	assigns: []struct{ role, perm string }{
+		{"ai", "article::read"},
+		{"ai", "comment::read"},
+		{"ai", "comment::react"},
+		{"ai", "profile::read"},
+		{"ai", "image::read"},
+		{"ai", "video::read"},
+		{"ai", "video::react"},
 		{"guest", "article::read"},
 		{"guest", "comment::read"},
 		{"guest", "profile::read"},

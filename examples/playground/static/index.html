@@ -166,6 +166,10 @@
         <option value="isLinux">IsLinux</option>
         <option value="isWindows">IsWindows</option>
       </optgroup>
+      <optgroup label="Identity">
+        <option value="isHuman">IsHuman</option>
+        <option value="isAI">IsAI</option>
+      </optgroup>
       <optgroup label="External URL">
         <option value="is200">Is200</option>
         <option value="is401">Is401</option>
@@ -191,6 +195,15 @@
     <div class="field">
       <label for="apUrl">URL</label>
       <input type="text" id="apUrl" placeholder="https://example.com/api">
+    </div>
+  </div>
+  <div id="userTypeField" class="hidden">
+    <div class="field">
+      <label for="apUserType">User Type</label>
+      <select id="apUserType">
+        <option value="human">human</option>
+        <option value="ai">ai</option>
+      </select>
     </div>
   </div>
 
@@ -576,6 +589,7 @@ const ui = {
     const mode = document.getElementById('assertMode').value;
     document.getElementById('ownerFields').classList.toggle('hidden', !['isOwner','isNotOwner'].includes(mode));
     document.getElementById('urlField').classList.toggle('hidden', !['is200','is401','is403','is404','is500'].includes(mode));
+    document.getElementById('userTypeField').classList.toggle('hidden', !['isHuman','isAI'].includes(mode));
   },
 
   async addRole() {
@@ -658,6 +672,9 @@ const ui = {
     if (['is200','is401','is403','is404','is500'].includes(assertMode)) {
       assertParams.url = document.getElementById('apUrl').value.trim();
       if (!assertParams.url) { errEl.textContent = 'Enter a URL for the assertion.'; return; }
+    }
+    if (['isHuman','isAI'].includes(assertMode)) {
+      assertParams.userType = document.getElementById('apUserType').value;
     }
 
     const extraRoles = checkMode !== 'single' ? getMultiSelect('extraRoles') : [];
